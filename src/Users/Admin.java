@@ -11,7 +11,7 @@ public class Admin extends User {
     public void changeStatusOfPhoto(Photo photo, String newStatus){}
 
     public Contest loadContest(String topic, String description, Date dateStart, Date dateFinish){
-        return new Contest();
+        return new Contest(topic, description, dateStart, dateFinish);
     }
 
     public void closeContest(Contest contest){}

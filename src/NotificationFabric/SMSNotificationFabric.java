@@ -1,4 +1,4 @@
-package NotificationsFabric;
+package NotificationFabric;
 
 import RegisterNotifications.RegisterNotification;
 import RegisterNotifications.SMSRegisterNotification;
@@ -7,7 +7,7 @@ import ContestSoonNotifications.SMSContestSoonNotification;
 import WinnerNotifications.WinnerNotification;
 import WinnerNotifications.SMSWinnerNotification;
 
-public class SMSNotificationFabric implements NotificationsFabric {
+public class SMSNotificationFabric implements NotificationFabric {
 
     @Override
     public RegisterNotification createRegisterNotification() {

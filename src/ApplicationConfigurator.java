@@ -1,7 +1,6 @@
-import NotificationsFabric.NotificationsFabric;
-import NotificationsFabric.SMSNotificationFabric;
-import NotificationsFabric.MailNotificationFabric;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import NotificationFabric.NotificationFabric;
+import NotificationFabric.SMSNotificationFabric;
+import NotificationFabric.MailNotificationFabric;
 
 import javax.naming.OperationNotSupportedException;
 
@@ -9,7 +8,7 @@ public class ApplicationConfigurator {
 
     public static void main(String[] args) throws OperationNotSupportedException {
         String notificationType = "SMS";
-        NotificationsFabric fabric;
+        NotificationFabric fabric;
 
         if (notificationType == "SMS") {
             fabric = new SMSNotificationFabric();

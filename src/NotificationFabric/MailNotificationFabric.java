@@ -1,17 +1,17 @@
-package NotificationsFabric;
+package NotificationFabric;
 
 import RegisterNotifications.RegisterNotification;
-import RegisterNotifications.EmailRegisterNotification;
+import RegisterNotifications.MailRegisterNotification;
 import ContestSoonNotifications.ContestSoonNotification;
 import ContestSoonNotifications.MailContestSoonNotification;
 import WinnerNotifications.WinnerNotification;
 import WinnerNotifications.MailWinnerNotification;
 
-public class MailNotificationFabric implements NotificationsFabric {
+public class MailNotificationFabric implements NotificationFabric {
 
     @Override
     public RegisterNotification createRegisterNotification() {
-        RegisterNotification hello = new EmailRegisterNotification();
+        RegisterNotification hello = new MailRegisterNotification();
         return(hello);
     }
 

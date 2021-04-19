@@ -1,10 +1,8 @@
-import Contest.Contest;
 import NotificationsFabric.NotificationsFabric;
 import NotificationsFabric.SMSNotificationFabric;
 import NotificationsFabric.MailNotificationFabric;
-import Users.Participant;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
-
+import Contest.Contest;
 import javax.naming.OperationNotSupportedException;
 import java.util.Date;
 

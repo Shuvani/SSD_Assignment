@@ -70,6 +70,10 @@ public class Contest {
         this.finnish = finnish;
     }
 
+    public ArrayList<Participant> getParticipants(){
+        return this.participants;
+    }
+
     // main part
 
     /**
@@ -96,7 +100,7 @@ public class Contest {
     /**
      * Adds the participant to the list of participants, if the competition is active
      * */
-    public void participate(Participant participant) {
+    public void addParticipant(Participant participant) {
         checkDates();
         if (! isActive){
             throw new AssertionError("The competition is already closed");

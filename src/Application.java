@@ -1,12 +1,12 @@
 import RegisterNotifications.RegisterNotification;
-import NotificationsFabric.NotificationsFabric;
+import NotificationFabric.NotificationFabric;
 
 public class Application {
 
-    private NotificationsFabric fabric;
+    private NotificationFabric fabric;
     private RegisterNotification registerNotification;
 
-    public Application(NotificationsFabric fabric) {
+    public Application(NotificationFabric fabric) {
         this.fabric = fabric;
     }
 

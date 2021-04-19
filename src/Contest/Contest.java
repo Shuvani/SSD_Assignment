@@ -1,9 +1,9 @@
 package Contest;
 
+import NotificationFabric.NotificationFabric;
 import Users.Participant;
-import NotificationsFabric.NotificationsFabric;
-import NotificationsFabric.SMSNotificationFabric;
-import NotificationsFabric.MailNotificationFabric;
+import NotificationFabric.SMSNotificationFabric;
+import NotificationFabric.MailNotificationFabric;
 
 import java.util.*;
 
@@ -151,7 +151,7 @@ public class Contest {
                     "Please, set up a winner before finnish");
         }
         // notify winners
-        NotificationsFabric fabric;
+        NotificationFabric fabric;
         switch (this.winnerNotificationType) {
             case 0:                                         /* both types */
                 fabric = new SMSNotificationFabric();

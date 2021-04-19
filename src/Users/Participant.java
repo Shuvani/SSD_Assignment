@@ -5,21 +5,21 @@ import java.util.ArrayList;
 
 public class Participant extends Photographer{
 
-    private Photo photo;
     private Contest contest;
+    private ArrayList<Photo> photos = new ArrayList<Photo>();
 
-    public void setPhoto(Photo photo){
-        this.photo = photo;
+    public void addPhoto(Photo photo){
+        this.photos.add(photo);
     }
 
-    public void removePhoto(){
+    public void removePhoto(Photo photo){
 
-        this.photo = null;
+        this.photos.remove(photo);
     }
 
-    public Photo getPhoto(){
+    public ArrayList<Photo> getPhotos(){
 
-        return this.photo;
+        return this.photos;
     }
 
     public void setContest(Contest contest) {

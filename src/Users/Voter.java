@@ -1,12 +1,15 @@
 package Users;
 import Contest.Contest;
 import Contest.Photo;
-import Users.User;
 import java.util.*;
 
 public class Voter extends User {
 
-    private Map<Contest, ArrayList<Photo>> votes = new TreeMap<Contest, ArrayList<Photo>>();
+    private Map<Contest, ArrayList<Photo>> votes = new HashMap<Contest, ArrayList<Photo>>();
+
+    public Voter(String email, String pass, int phoneNumber) {
+        super(email, pass, phoneNumber);
+    }
 
     public void vote(Contest contest, Photo photo){
         if (this.votes.containsKey(contest)){
@@ -19,7 +22,7 @@ public class Voter extends User {
             }
         }
         else{
-            ArrayList<Photo> photos = new ArrayList<Photo>();
+            ArrayList<Photo> photos = new ArrayList<>();
             photos.add(photo);
             this.votes.put(contest, photos);
             photo.vote();

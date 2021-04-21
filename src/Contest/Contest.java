@@ -31,6 +31,7 @@ public class Contest {
         this.votingRequired = votingRequired;
         this.winnersCount = winnersCount;
         this.participants = new ArrayList<>();
+        this.winners = new ArrayList<>();
     }
 
     public Contest(String name, String description, Date start, Date finnish) {
@@ -80,6 +81,10 @@ public class Contest {
      * Updates the `isActive` variable, according to the current date
      * */
     private void checkDates() {
+//        System.out.println("First check: "+ new Date() + "\t finn: "+
+//                finnish+"\n Res: "+ new Date().compareTo(finnish));
+//        System.out.println("Second check: "+ new Date() + "\t start: "+
+//                start+"\n Res: "+ new Date().compareTo(start));
         if(new Date().compareTo(finnish) >= 0) {
             this.isActive = false;
         }else if(new Date().compareTo(start) < 0) {
@@ -103,7 +108,8 @@ public class Contest {
     public void addParticipant(Participant participant) {
         checkDates();
         if (! isActive){
-            throw new AssertionError("The competition is already closed");
+            throw new AssertionError("The competition is already closed. Final date "+
+                    this.finnish + "\nGiven date:"+new Date());
         }
         this.participants.add(participant);
     }
@@ -129,7 +135,7 @@ public class Contest {
         }
         Collections.sort(photos, new PhotoComparator());
         for (int i = 0; i < this.winnersCount && i < photos.size(); i++) {
-            this.winners.add(photos.get(i).getAuthor());
+            this.winners.add(photos.get(photos.size()-1-i).getAuthor());
         }
     }
 

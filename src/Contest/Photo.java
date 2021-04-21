@@ -19,6 +19,7 @@ public class Photo {
         this.title = title;
     }
 
+    public String getTitle(){return this.title;}
     public void rename(String newTitle){
         this.title = newTitle;
     }

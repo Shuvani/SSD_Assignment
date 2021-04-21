@@ -47,7 +47,7 @@ public class ApplicationConfigurator {
             photographers[i] = new Photographer("email", "123", i);
             // participate with a new photo
             Participant ph = photographers[i].applyForContest(contest);
-            photos[i] = new Photo(new FileInputStream("./SSD_Assignment/src/Application.java"), ph);
+            photos[i] = new Photo(new FileInputStream("./src/Application.java"), ph);
             ph.addPhoto(photos[i]);
             admin.changeStatusOfPhoto(photos[i], 1);
         }

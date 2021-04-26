@@ -43,11 +43,14 @@ public class ApplicationConfigurator {
         int N = 10;
         Photographer[] photographers = new Photographer[N];
         Photo[] photos= new Photo[N];
+
+        Image img = new Image(new FileInputStream("./src/main/java/Application.java"));
+
         for(int i = 0; i < N; i++) {
             photographers[i] = new Photographer("email", "123", i);
             // participate with a new photo
             Participant ph = photographers[i].applyForContest(contest);
-            photos[i] = new Photo(new FileInputStream("./src/Application.java"), ph);
+            photos[i] = new Photo(img, ph);
             ph.addPhoto(photos[i]);
             admin.changeStatusOfPhoto(photos[i], 1);
         }

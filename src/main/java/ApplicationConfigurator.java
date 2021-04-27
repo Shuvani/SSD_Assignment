@@ -49,9 +49,11 @@ public class ApplicationConfigurator {
         for(int i = 0; i < N; i++) {
             photographers[i] = new Photographer("email", "123", i);
             // participate with a new photo
-            Participant ph = photographers[i].applyForContest(contest);
-            photos[i] = new Photo(img, ph);
-            ph.addPhoto(photos[i]);
+            Participant participant = photographers[i].applyForContest(contest);
+            participant.addPhoto(img, "title");
+
+            ArrayList<Photo> list = participant.getPhotos();
+            photos[i] = list.get(list.size() - 1);
             admin.changeStatusOfPhoto(photos[i], 1);
         }
         // create voters

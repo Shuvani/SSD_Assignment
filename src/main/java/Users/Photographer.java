@@ -1,7 +1,10 @@
 package Users;
 import Contest.Contest;
 import Contest.Photo;
+import Contest.Image;
+import java.io.*;
 import java.util.ArrayList;
+
 
 public class Photographer extends User{
 
@@ -9,10 +12,11 @@ public class Photographer extends User{
         super(email, pass, phoneNumber);
     }
     private ArrayList<Contest> contests = new ArrayList<>();
+    private ArrayList<Image> images = new ArrayList<>();
 
-    public Participant applyForContest(Contest contest, Photo photo){
+    public Participant applyForContest(Contest contest, Image img){
         Participant participant = applyForContest(contest);
-        participant.addPhoto(photo);
+        participant.addPhoto(img);
         return participant;
     }
 
@@ -22,6 +26,14 @@ public class Photographer extends User{
         participant.setContest(contest);
         contest.addParticipant(participant);
         return participant;
+    }
+
+    public void addImage(Image img){
+        this.images.add(img);
+    }
+
+    public Image getImageById(int i){
+        return this.images.get(i);
     }
 
 }

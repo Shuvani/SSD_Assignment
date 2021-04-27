@@ -1,6 +1,7 @@
 package Users;
 import Contest.Contest;
 import Contest.Photo;
+import Contest.Image;
 import java.util.ArrayList;
 
 public class Participant {
@@ -20,6 +21,10 @@ public class Participant {
 
     public void addPhoto(Photo photo){
         this.photos.add(photo);
+    }
+
+    public void addPhoto(Image image){
+        this.photos.add(new Photo(image, this));
     }
 
     public void removePhoto(Photo photo){

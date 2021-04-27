@@ -6,7 +6,7 @@ import java.io.*;
 
 public class Photo {
     private String title;
-    private FileInputStream data;
+    private Image image;
     private int votes;
     private Participant author;
     /**
@@ -17,14 +17,14 @@ public class Photo {
      * */
     private int status;
 
-    public Photo(FileInputStream data, Participant author){
-        this.data = data;
+    public Photo(Image image, Participant author){
+        this.image = image;
         this.author = author;
         this.status = -1; // not defined
     }
 
-    public Photo(FileInputStream data, Participant author, String title){
-        this(data, author);
+    public Photo(Image image, Participant author, String title){
+        this(image, author);
         this.title = title;
     }
 

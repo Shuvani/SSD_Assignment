@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.Random;
+import java.util.ArrayList;
 
 public class ApplicationConfigurator {
 

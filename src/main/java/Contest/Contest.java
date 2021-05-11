@@ -183,4 +183,34 @@ public class Contest {
         return this.winners;
     }
 
+
+    public Iterator<Photo> photosIterator(){
+        ArrayList<Photo> photos = new ArrayList<Photo>();
+
+        for (Participant participant: participants) {
+            for (Photo ph: participant.getPhotos()) {
+                photos.add(ph);
+            }
+        }
+
+        return new SeqPhotoIterator(photos);
+    }
+
+    public Iterator<Photo> photosIterator(Specifier s){
+        ArrayList<Photo> photos = new ArrayList<Photo>();
+
+        for (Participant participant: participants) {
+            for (Photo ph: participant.getPhotos()) {
+                photos.add(ph);
+            }
+        }
+
+        if(s instanceof RandSpec) { return new RandPhotoIterator(photos); }
+        if(s instanceof SeqSpec) { return new RandPhotoIterator(photos); }
+        if(s instanceof TitleSpec) { return new RandPhotoIterator(photos); }
+        if(s instanceof VotesSpec) { return new RandPhotoIterator(photos); }
+
+        return new SeqPhotoIterator(photos);
+    }
+
 }

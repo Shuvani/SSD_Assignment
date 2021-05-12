@@ -11,7 +11,7 @@ public class VotesPhotoIterator implements Iterator<Photo> {
                 public int compare(Photo p1, Photo p2) {
                     Integer i1 = Integer.valueOf(p1.getVotes());
                     Integer i2 = Integer.valueOf(p2.getVotes());
-                    return i1.compareTo(i2);
+                    return i2.compareTo(i1);
                 }
             });
 

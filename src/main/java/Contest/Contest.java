@@ -81,10 +81,6 @@ public class Contest {
      * Updates the `isActive` variable, according to the current date
      * */
     private void checkDates() {
-//        System.out.println("First check: "+ new Date() + "\t finn: "+
-//                finnish+"\n Res: "+ new Date().compareTo(finnish));
-//        System.out.println("Second check: "+ new Date() + "\t start: "+
-//                start+"\n Res: "+ new Date().compareTo(start));
         if(new Date().compareTo(finnish) >= 0) {
             this.isActive = false;
         }else if(new Date().compareTo(start) < 0) {
@@ -123,19 +119,27 @@ public class Contest {
     }
 
     /**
-     * Search for the photos and authors, who are the winners
-     * (top-`winnersCount`) of the contest
+     * Get array list of all photos, participating in the contest
      * */
-    public void findWinners() {
+    private ArrayList<Photo> getAllPhotos(){
         ArrayList<Photo> photos = new ArrayList<>();
         for (Participant participant: participants) {
             for (Photo ph: participant.getPhotos()) {
                 photos.add(ph);
             }
         }
-        Collections.sort(photos, new PhotoComparator());
-        for (int i = 0; i < this.winnersCount && i < photos.size(); i++) {
-            this.winners.add(photos.get(photos.size()-1-i).getAuthor());
+        return photos;
+    }
+
+    /**
+     * Search for the photos and authors, who are the winners
+     * (top-`winnersCount`) of the contest
+     * */
+    public void findWinners() {
+        ArrayList<Photo> photos = getAllPhotos();
+        Iterator<Photo> it =  new VotesPhotoIterator(photos);
+        while(it.hasNext() && this.winners.size() < this.winnersCount){
+            this.winners.add(it.next().getAuthor());
         }
     }
 
@@ -175,12 +179,41 @@ public class Contest {
         fabric.createWinnerNotification().sendNotification();
     }
 
-
+    /**
+     * Returns the ArrayList of winners of the contest if it is finished
+     * */
     public ArrayList<Participant> getWinners(){
         if (this.isActive){
             throw new AssertionError("Contest hasn't finished yet");
         }
         return this.winners;
+    }
+
+    /**
+     * The generator of iterator over all photos in order,
+     * they were added to the contest
+     * */
+    public Iterator<Photo> photosIterator(){
+        ArrayList<Photo> photos = getAllPhotos();
+        return new SeqPhotoIterator(photos);
+    }
+
+    /**
+     * The iterator over the photos, the order is specified by the `Specifier`
+     * - `RandSpec` - random order of the photos
+     * - `SeqSpec` - default, the order is the same, as the order of addition to the contest
+     * - `TitleSpec` - the photos are ordered by the title
+     * - `VotesSpec` - the photos are ordered from the most popular to the least popular image
+     * */
+    public Iterator<Photo> photosIterator(Specifier s){
+        ArrayList<Photo> photos = getAllPhotos();
+
+        if(s instanceof RandSpec) { return new RandPhotoIterator(photos); }
+        if(s instanceof SeqSpec) { return new SeqPhotoIterator(photos); }
+        if(s instanceof TitleSpec) { return new TitlePhotoIterator(photos); }
+        if(s instanceof VotesSpec) { return new VotesPhotoIterator(photos); }
+
+        return new SeqPhotoIterator(photos);
     }
 
 }

@@ -65,7 +65,7 @@ public class ApplicationConfigurator {
         Photographer[] photographers = new Photographer[N];
         Photo[] photos= new Photo[N];
 
-        Image img = new Image(new FileInputStream("./SSD_Assignment/src/main/java/Application.java"));
+        Image img = new Image(new FileInputStream("./src/main/java/Application.java"));
 
         for(int i = 0; i < N; i++) {
             photographers[i] = new Photographer("email", "123", i);

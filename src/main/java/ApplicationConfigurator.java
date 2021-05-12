@@ -7,10 +7,30 @@ import javax.naming.OperationNotSupportedException;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.ArrayList;
 
+
 public class ApplicationConfigurator {
+    private static void testIterators(Contest contest){
+        System.out.println("Iterators");
+        // title comparison
+        Iterator<Photo> itTitle = contest.photosIterator(new TitleSpec());
+        Photo ph0 = itTitle.next();
+        Photo ph1 = itTitle.next();
+        if(ph0.getTitle().compareTo(ph1.getTitle()) > 0){
+            System.out.println("\tTitle comparison works");
+        }
+        // random order tested
+        Iterator<Photo> itRand = contest.photosIterator(new RandSpec());
+        Photo ph_r0 = itRand.next();
+        if(ph0 != ph_r0){
+            System.out.println("\tRandom order works");
+        }
+
+
+    }
 
     private static void testNotifications(String notificationType) throws OperationNotSupportedException{
         NotificationFabric fabric;
@@ -45,13 +65,13 @@ public class ApplicationConfigurator {
         Photographer[] photographers = new Photographer[N];
         Photo[] photos= new Photo[N];
 
-        Image img = new Image(new FileInputStream("./src/main/java/Application.java"));
+        Image img = new Image(new FileInputStream("./SSD_Assignment/src/main/java/Application.java"));
 
         for(int i = 0; i < N; i++) {
             photographers[i] = new Photographer("email", "123", i);
             // participate with a new photo
             Participant participant = photographers[i].applyForContest(contest);
-            participant.addPhoto(img, "title");
+            participant.addPhoto(img, "title"+i);
 
             ArrayList<Photo> list = participant.getPhotos();
             photos[i] = list.get(list.size() - 1);
@@ -71,10 +91,13 @@ public class ApplicationConfigurator {
             }
             voters[i].vote(contest, photos[new Random().nextInt(N)]);
         }
+        testIterators(contest);
         // Finish the contest
         admin.closeContest(contest);
-        for (int i=0; i<N; i++){
-            System.out.println("Photo["+i+"]\t Score: "+photos[i].getVotes());
+        // sequential iteration
+        Iterator<Photo> seqIt = contest.photosIterator();
+        while(seqIt.hasNext()){
+            System.out.println("\t Score: "+seqIt.next().getVotes());
         }
         for(Participant p: contest.getWinners()) {
             System.out.println(p.toString());

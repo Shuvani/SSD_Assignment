@@ -10,26 +10,26 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Random;
 import java.util.ArrayList;
+import Contest.TitleSpec;
+import Contest.RandSpec;
 
 
 public class ApplicationConfigurator {
     private static void testIterators(Contest contest){
         System.out.println("Iterators");
         // title comparison
-        Iterator<Photo> itTitle = contest.photosIterator(new TitleSpec());
+        Iterator<Photo> itTitle = contest.getAllPhotos().iterator(new TitleSpec());
         Photo ph0 = itTitle.next();
         Photo ph1 = itTitle.next();
         if(ph0.getTitle().compareTo(ph1.getTitle()) > 0){
             System.out.println("\tTitle comparison works");
         }
         // random order tested
-        Iterator<Photo> itRand = contest.photosIterator(new RandSpec());
+        Iterator<Photo> itRand = contest.getAllPhotos().iterator(new RandSpec());
         Photo ph_r0 = itRand.next();
         if(ph0 != ph_r0){
             System.out.println("\tRandom order works");
         }
-
-
     }
 
     private static void testNotifications(String notificationType) throws OperationNotSupportedException{
@@ -73,7 +73,7 @@ public class ApplicationConfigurator {
             Participant participant = photographers[i].applyForContest(contest);
             participant.addPhoto(img, "title"+i);
 
-            ArrayList<Photo> list = participant.getPhotos();
+            ArrayList<Photo> list = participant.getPhotos().unwrap();
             photos[i] = list.get(list.size() - 1);
             admin.changeStatusOfPhoto(photos[i], 1);
         }
@@ -95,7 +95,7 @@ public class ApplicationConfigurator {
         // Finish the contest
         admin.closeContest(contest);
         // sequential iteration
-        Iterator<Photo> seqIt = contest.photosIterator();
+        Iterator<Photo> seqIt = contest.getAllPhotos().iterator();
         while(seqIt.hasNext()){
             System.out.println("\t Score: "+seqIt.next().getVotes());
         }

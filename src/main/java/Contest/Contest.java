@@ -121,14 +121,14 @@ public class Contest {
     /**
      * Get array list of all photos, participating in the contest
      * */
-    private ArrayList<Photo> getAllPhotos(){
+    public PhotosCollection getAllPhotos(){
         ArrayList<Photo> photos = new ArrayList<>();
         for (Participant participant: participants) {
             for (Photo ph: participant.getPhotos()) {
                 photos.add(ph);
             }
         }
-        return photos;
+        return new PhotosCollection(photos);
     }
 
     /**
@@ -136,7 +136,7 @@ public class Contest {
      * (top-`winnersCount`) of the contest
      * */
     public void findWinners() {
-        ArrayList<Photo> photos = getAllPhotos();
+        ArrayList<Photo> photos = getAllPhotos().unwrap();
         Iterator<Photo> it =  new VotesPhotoIterator(photos);
         while(it.hasNext() && this.winners.size() < this.winnersCount){
             this.winners.add(it.next().getAuthor());
@@ -187,33 +187,6 @@ public class Contest {
             throw new AssertionError("Contest hasn't finished yet");
         }
         return this.winners;
-    }
-
-    /**
-     * The generator of iterator over all photos in order,
-     * they were added to the contest
-     * */
-    public Iterator<Photo> photosIterator(){
-        ArrayList<Photo> photos = getAllPhotos();
-        return new SeqPhotoIterator(photos);
-    }
-
-    /**
-     * The iterator over the photos, the order is specified by the `Specifier`
-     * - `RandSpec` - random order of the photos
-     * - `SeqSpec` - default, the order is the same, as the order of addition to the contest
-     * - `TitleSpec` - the photos are ordered by the title
-     * - `VotesSpec` - the photos are ordered from the most popular to the least popular image
-     * */
-    public Iterator<Photo> photosIterator(Specifier s){
-        ArrayList<Photo> photos = getAllPhotos();
-
-        if(s instanceof RandSpec) { return new RandPhotoIterator(photos); }
-        if(s instanceof SeqSpec) { return new SeqPhotoIterator(photos); }
-        if(s instanceof TitleSpec) { return new TitlePhotoIterator(photos); }
-        if(s instanceof VotesSpec) { return new VotesPhotoIterator(photos); }
-
-        return new SeqPhotoIterator(photos);
     }
 
 }

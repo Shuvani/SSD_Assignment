@@ -2,15 +2,16 @@ package Users;
 import Contest.Contest;
 import Contest.Photo;
 import Contest.Image;
+import Contest.PhotosCollection;
 import java.util.ArrayList;
 
 public class Participant {
 
     private Contest contest;
     private Photographer photographer;
-    private ArrayList<Photo> photos = new ArrayList<>();
+    private PhotosCollection photos = new PhotosCollection();
 
-    public ArrayList<Photo> getPhotos(){
+    public PhotosCollection getPhotos(){
         return this.photos;
     }
 
